@@ -10,6 +10,7 @@ public class Category
     [Required]
     public string Name { get; set; } = string.Empty;
 
+    [Display(Name = "Display Order")]
     public int DisplayOrder { get; set; }
 
     public DateTimeOffset CreatedDateTime { get; set; } = DateTimeOffset.Now;
