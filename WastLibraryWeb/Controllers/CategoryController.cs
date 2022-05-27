@@ -29,7 +29,7 @@ namespace WastLibraryWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
-            if(category.Name == category.DisplayOrder.ToString())
+            if (category.Name == category.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("CustomError", "The Display Order cannot exactly match the Name.");
             }
@@ -37,6 +37,43 @@ namespace WastLibraryWeb.Controllers
             if (ModelState.IsValid)
             {
                 _context.Categories.Add(category);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(category);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var categoryFromDb = _context.Categories.Find(id);
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category category)
+        {
+            if (category.Name == category.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("CustomError", "The Display Order cannot exactly match the Name.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(category);
                 _context.SaveChanges();
 
                 return RedirectToAction("Index");
