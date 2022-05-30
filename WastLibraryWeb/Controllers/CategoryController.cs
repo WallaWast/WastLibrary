@@ -38,6 +38,7 @@ namespace WastLibraryWeb.Controllers
             {
                 _context.Categories.Add(category);
                 _context.SaveChanges();
+                TempData.Add("success","Category created successfully");
 
                 return RedirectToAction("Index");
             }
@@ -75,6 +76,7 @@ namespace WastLibraryWeb.Controllers
             {
                 _context.Update(category);
                 _context.SaveChanges();
+                TempData.Add("success", "Category updated successfully");
 
                 return RedirectToAction("Index");
             }
@@ -112,6 +114,7 @@ namespace WastLibraryWeb.Controllers
 
             _context.Remove(categoryFromDb);
             _context.SaveChanges();
+            TempData.Add("success", "Category deleted successfully");
 
             return RedirectToAction("Index");
         }
