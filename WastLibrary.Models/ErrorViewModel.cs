@@ -1,4 +1,4 @@
-namespace WastLibraryWeb.Models
+namespace WastLibrary.Models
 {
     public class ErrorViewModel
     {

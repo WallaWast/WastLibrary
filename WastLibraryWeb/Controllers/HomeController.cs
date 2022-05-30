@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WastLibraryWeb.Models;
+using WastLibrary.Models;
 
 namespace WastLibraryWeb.Controllers
 {

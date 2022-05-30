@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WastLibraryWeb.Data;
-using WastLibraryWeb.Models;
+using WastLibrary.DataAccess;
+using WastLibrary.Models;
 
 namespace WastLibraryWeb.Controllers
 {

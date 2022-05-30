@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WastLibraryWeb.Models;
+using WastLibrary.Models;
 
-namespace WastLibraryWeb.Data;
+namespace WastLibrary.DataAccess;
 
 public class ApplicationDbContext : DbContext
 {

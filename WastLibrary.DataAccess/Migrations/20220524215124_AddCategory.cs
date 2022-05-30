@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WastLibraryWeb.Migrations
+namespace WastLibrary.DataAccess.Migrations
 {
     public partial class AddCategory : Migration
     {

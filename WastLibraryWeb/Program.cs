@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using WastLibraryWeb.Data;
+using WastLibrary.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
