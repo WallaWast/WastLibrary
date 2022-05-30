@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WastLibrary.DataAccess;
+using WastLibrary.DataAccess.Repository.IRepository;
 using WastLibrary.Models;
 
 namespace WastLibraryWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryRepository _repository;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(ICategoryRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
-            var categories = _context.Categories.ToList();
+            var categories = _repository.GetAll();
 
             return View(categories);
         }
@@ -36,9 +36,9 @@ namespace WastLibraryWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Categories.Add(category);
-                _context.SaveChanges();
-                TempData.Add("success","Category created successfully");
+                _repository.Add(category);
+                _repository.Save();
+                TempData.Add("success", "Category created successfully");
 
                 return RedirectToAction("Index");
             }
@@ -53,7 +53,7 @@ namespace WastLibraryWeb.Controllers
                 return NotFound();
             }
 
-            var categoryFromDb = _context.Categories.Find(id);
+            var categoryFromDb = _repository.GetFirstOrDefault(c => c.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -74,8 +74,8 @@ namespace WastLibraryWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Update(category);
-                _context.SaveChanges();
+                _repository.Update(category);
+                _repository.Save();
                 TempData.Add("success", "Category updated successfully");
 
                 return RedirectToAction("Index");
@@ -91,7 +91,7 @@ namespace WastLibraryWeb.Controllers
                 return NotFound();
             }
 
-            var categoryFromDb = _context.Categories.Find(id);
+            var categoryFromDb = _repository.GetFirstOrDefault(c => c.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -105,15 +105,15 @@ namespace WastLibraryWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var categoryFromDb = _context.Categories.Find(id);
+            var categoryFromDb = _repository.GetFirstOrDefault(c => c.Id == id);
 
             if (categoryFromDb == null)
             {
                 return NotFound();
             }
 
-            _context.Remove(categoryFromDb);
-            _context.SaveChanges();
+            _repository.Remove(categoryFromDb);
+            _repository.Save();
             TempData.Add("success", "Category deleted successfully");
 
             return RedirectToAction("Index");

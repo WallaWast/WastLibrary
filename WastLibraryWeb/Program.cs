@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WastLibrary.DataAccess;
+using WastLibrary.DataAccess.Repository;
+using WastLibrary.DataAccess.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     }
 );
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 
